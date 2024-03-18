@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export const GET = async () => {
+export const GET = async (req, res) => {
+  await nextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "http://localhost:3000", // or '*' to allow any origin
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   const posts = await prisma.post.findMany();
   return NextResponse.json({
     success: true,
     posts,
-    headers: {
-      "access-control-allow-origin": "http://localhost:3000",
-    },
   });
 };
 
