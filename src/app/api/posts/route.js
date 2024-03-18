@@ -7,7 +7,7 @@ export const GET = async () => {
     success: true,
     posts,
     headers: {
-      "access-control-allow-origin": "*",
+      "access-control-allow-origin": "http://localhost:3000",
     },
   });
 };
