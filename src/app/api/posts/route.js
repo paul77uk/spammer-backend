@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import nextCors from "nextjs-cors";
 
 export const GET = async (req, res) => {
   await nextCors(req, res, {
     // Options
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "http://localhost:3000", // or '*' to allow any origin
+    origin: "*", // or '*' to allow any origin
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
   const posts = await prisma.post.findMany();
