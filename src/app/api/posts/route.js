@@ -3,9 +3,15 @@ import { prisma } from "@/lib/prisma";
 
 export const GET = async () => {
   const posts = await prisma.post.findMany();
-  return NextResponse.json({ success: true, posts, headers: {
-      'Access-Control-Allow-Origin': '*',
-    } });
+  return NextResponse.json({
+    success: true,
+    posts,
+    headers: {
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      origin: "*",
+      optionsSuccessStatus: 200,
+    },
+  });
 };
 
 export const POST = async (req) => {
