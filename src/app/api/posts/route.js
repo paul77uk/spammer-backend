@@ -7,9 +7,7 @@ export const GET = async () => {
     success: true,
     posts,
     headers: {
-      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-      origin: "*",
-      optionsSuccessStatus: 200,
+      "access-control-allow-origin": "*",
     },
   });
 };
