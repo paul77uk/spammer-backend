@@ -7,7 +7,7 @@ export const GET = async (req, res) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   const posts = await prisma.post.findMany();
-  return NextResponse.json({
+  res.status(200).json({
     success: true,
     posts,
   });
