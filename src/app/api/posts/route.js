@@ -3,15 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 export const GET = async () => {
   const posts = await prisma.post.findMany();
-  return NextResponse.json({
-    success: true,
-    posts,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
-  });
+  return NextResponse.json({ success: true, posts });
 };
 
 export const POST = async (req) => {
