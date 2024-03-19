@@ -10,6 +10,7 @@ export const GET = async () => {
 };
 
 export const POST = async (req) => {
+  const origin = req.headers.get("origin");
   try {
     const { text } = await req.json();
     if (!text) {
@@ -23,7 +24,10 @@ export const POST = async (req) => {
         text,
       },
     });
-    return NextResponse.json({ success: true, post });
+    return NextResponse.json({ success: true, post, headers: {
+      "Access-Control-Allow-Origin":origin || "*",
+      "Content-Type":"application/json"
+    }});
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message });
   }
