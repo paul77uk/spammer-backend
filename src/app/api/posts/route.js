@@ -1,13 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export const GET = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
+export const GET = async () => {
   const posts = await prisma.post.findMany();
-  res.status(200).json({
+  return NextResponse.json({
     success: true,
     posts,
   });
