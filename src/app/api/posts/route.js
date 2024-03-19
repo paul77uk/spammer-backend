@@ -11,16 +11,18 @@ export const GET = async () => {
 };
 
 export const POST = async (req) => {
-  options = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  };
+  const origin = req.headers.get("origin");
   try {
     const { text } = await req.json();
     if (!text) {
-      return NextResponse.json({ success: false, error: "Text is required" });
+      return NextResponse.json({
+        success: false,
+        error: "Text is required",
+        headers: {
+          "Access-Control-Allow-Origin": origin || "*",
+          "Content-Type": "application/json",
+        },
+      });
     }
     const post = await prisma.post.create({
       data: {
