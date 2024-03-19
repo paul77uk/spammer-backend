@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { headers } from "next/headers.js";
 
 export const GET = async () => {
   const posts = await prisma.post.findMany();
   return NextResponse.json({
     success: true,
     posts,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    },
   });
 };
 
 export const POST = async (req) => {
-  const origin = req.headers.get("origin");
   try {
     const { text } = await req.json();
     if (!text) {
@@ -19,7 +21,7 @@ export const POST = async (req) => {
         success: false,
         error: "Text is required",
         headers: {
-          "Access-Control-Allow-Origin": origin || "*",
+          "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
       });
