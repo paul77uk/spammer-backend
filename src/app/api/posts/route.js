@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { headers } from "next/headers.js";
 
 export const GET = async () => {
   const posts = await prisma.post.findMany();
@@ -10,6 +11,7 @@ export const GET = async () => {
 };
 
 export const POST = async (req) => {
+  headers.set("Access-Control-Allow-Origin", "*");
   try {
     const { text } = await req.json();
     if (!text) {
