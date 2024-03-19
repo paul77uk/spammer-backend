@@ -6,6 +6,10 @@ export const GET = async () => {
   return NextResponse.json({
     success: true,
     posts,
+    headers: {
+      "Access-Control-Allow-Origin": origin || "*",
+      "Content-Type": "application/json",
+    },
   });
 };
 
@@ -24,10 +28,14 @@ export const POST = async (req) => {
         text,
       },
     });
-    return NextResponse.json({ success: true, post, headers: {
-      "Access-Control-Allow-Origin":origin || "*",
-      "Content-Type":"application/json"
-    }});
+    return NextResponse.json({
+      success: true,
+      post,
+      headers: {
+        "Access-Control-Allow-Origin": origin || "*",
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message });
   }
