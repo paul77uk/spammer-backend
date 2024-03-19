@@ -6,10 +6,6 @@ export const GET = async () => {
   return NextResponse.json({
     success: true,
     posts,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    },
   });
 };
 
@@ -20,10 +16,6 @@ export const POST = async (req) => {
       return NextResponse.json({
         success: false,
         error: "Text is required",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
       });
     }
     const post = await prisma.post.create({
