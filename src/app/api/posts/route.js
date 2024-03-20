@@ -2,19 +2,18 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export const GET = async () => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  })
   return NextResponse.json({
     success: true,
     posts,
-    headers: {
-      "Access-Control-Allow-Origin": origin || "*",
-      "Content-Type": "application/json",
-    },
   });
 };
 
 export const POST = async (req) => {
-  const origin = req.headers.get("origin");
   try {
     const { text } = await req.json();
     if (!text) {
@@ -28,14 +27,7 @@ export const POST = async (req) => {
         text,
       },
     });
-    return NextResponse.json({
-      success: true,
-      post,
-      headers: {
-        "Access-Control-Allow-Origin": origin || "*",
-        "Content-Type": "application/json",
-      },
-    });
+    return NextResponse.json({ success: true, post });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message });
   }
